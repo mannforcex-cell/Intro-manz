@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Manz Force X • Iman Gua Musang</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #0a0f0f 0%, #1a1f1e 100%);
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            color: #e2e8e8;
+            line-height: 1.6;
+            padding: 0 0 30px 0;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+
+        /* ANIMASI LOADING YANG LEBIH POWER! */
+        #loading-animation {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #0b1210;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.8s ease;
+            pointer-events: none;
+        }
+        
+        .load-text {
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: 10px;
+            background: linear-gradient(45deg, #2b9c7a, #7fe0c4, #2b9c7a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px #2b9c7a;
+            animation: glowPulse 1.5s infinite alternate;
+            margin-bottom: 20px;
+        }
+        
+        .load-sub {
+            font-size: 1.2rem;
+            color: #94a3a3;
+            margin-top: 8px;
+            font-style: italic;
+            animation: fadeInOut 2s infinite;
+        }
+        
+        .loading-bar {
+            width: 200px;
+            height: 6px;
+            background: #1a2c28;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+            border: 1px solid #2b9c7a;
+        }
+        
+        .loading-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #2b9c7a, #7fe0c4);
+            border-radius: 10px;
+            animation: fillBar 2.2s ease-in-out forwards;
+        }
+        
+        @keyframes glowPulse {
+            0% { text-shadow: 0 0 20px #2b9c7a; opacity: 0.8; }
+            100% { text-shadow: 0 0 50px #7fe0c4; opacity: 1; }
+        }
+        
+        @keyframes fadeInOut {
+            0% { opacity: 0.5; transform: translateY(0); }
+            50% { opacity: 1; transform: translateY(-5px); }
+            100% { opacity: 0.5; transform: translateY(0); }
+        }
+        
+        @keyframes fillBar {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        .profile-card {
+            background: rgba(20, 30, 28, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 42px 42px 32px 32px;
+            padding: 20px 18px 28px;
+            margin: 18px 0 24px;
+            border: 1px solid #2b9c7a30;
+            box-shadow: 0 25px 40px -15px #000000cc;
+        }
+
+        .hero-img {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border-radius: 28px;
+            object-fit: cover;
+            border: 3px solid #1e4940;
+            box-shadow: 0 10px 25px #00000080;
+            background: #1e2a26;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin: 18px 0 4px;
+            background: linear-gradient(135deg, #b2f0d6, #7fe0c4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+        .location-badge {
+            background: #1a2c28;
+            padding: 6px 14px;
+            border-radius: 60px;
+            display: inline-block;
+            font-size: 0.9rem;
+            color: #9cd6c4;
+            margin-bottom: 16px;
+            border: 1px solid #2b9c7a60;
+        }
+
+        .intro-text {
+            background: #101d1ab3;
+            padding: 22px 16px;
+            border-radius: 28px;
+            margin: 15px 0;
+            border-left: 6px solid #2b9c7a;
+            font-style: normal;
+            box-shadow: inset 0 0 10px #00000050;
+            font-size: 1rem;
+        }
+
+        .quest-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin: 28px 0 18px;
+        }
+        .quest-item {
+            background: #0a1815;
+            border-radius: 30px;
+            padding: 18px 20px;
+            border: 1px solid #2b9c7a40;
+        }
+        .quest-title {
+            font-size: 1.9rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 6px;
+        }
+        .virus { color: #ff7777; }
+        .ddos { color: #77aaff; }
+
+        .socmed-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin: 28px 0 12px;
+        }
+        .socmed-btn {
+            background: #1b2b27;
+            padding: 14px 18px;
+            border-radius: 40px;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            border: 1px solid #3f6b5e;
+            flex: 1 1 auto;
+            min-width: 140px;
+            justify-content: center;
+            box-shadow: 0 4px 0 #0f1f1b;
+            transition: 0.1s;
+        }
+        .socmed-btn:active { transform: translateY(4px); box-shadow: 0 1px 0 #0f1f1b; }
+        .wa { background: #25D36620; border-color: #25D366; }
+        .tele { background: #0088cc20; border-color: #0088cc; }
+        .email { background: #ea433520; border-color: #ea4335; }
+        .tiktok { background: #00000040; border-color: #ee1d52; }
+        .fb { background: #1877f220; border-color: #1877f2; }
+        .ig { background: #c1358420; border-color: #c13584; }
+
+        /* SOUND SECTION POWER */
+        .sound-section {
+            background: #12221e;
+            border-radius: 48px;
+            padding: 22px 16px;
+            margin: 30px 0 20px;
+            border: 2px solid #2b9c7a;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(43, 156, 122, 0.2);
+        }
+        
+        .sound-btn {
+            background: linear-gradient(145deg, #3bb08f, #2e8b70);
+            border: 2px solid #ffe484;
+            color: white;
+            padding: 18px 12px;
+            border-radius: 60px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            width: 100%;
+            box-shadow: 0 0 25px rgba(127, 224, 196, 0.6);
+            cursor: pointer;
+            text-shadow: 0 2px 0 #0a1f19;
+            transition: 0.2s;
+            margin: 10px 0;
+        }
+        .sound-btn:active { transform: scale(0.95); }
+
+        .hidden-video {
+            position: absolute;
+            width: 0; height: 0; opacity: 0;
+            pointer-events: none;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #5d7a73;
+            border-top: 2px dashed #2b4d42;
+            padding-top: 25px;
+        }
+        .manz-force { font-size: 1.6rem; font-weight: 800; color: #c1e5d9; }
+        
+        /* Nota kecil untuk user */
+        .audio-note {
+            font-size: 0.8rem;
+            color: #94a3a3;
+            margin-top: 10px;
+            padding: 8px;
+            background: #1a2c2840;
+            border-radius: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ANIMASI LOADING BARU YANG LEBIH POWER -->
+    <div id="loading-animation">
+        <div class="load-text">⚡LOADING⚡</div>
+        <div class="loading-bar">
+            <div class="loading-fill"></div>
+        </div>
+        <div class="load-sub">manz kelate • gua musang</div>
+        <div class="load-sub" style="font-size: 0.9rem; margin-top: 30px;"> play • surat hitam</div>
+    </div>
+
+    <div class="container">
+        <!-- Kad profil Iman dengan INTRO PENUH -->
+        <div class="profile-card">
+            <img src="https://files.catbox.moe/6qkqoj.jpg" class="hero-img" onerror="this.src='https://via.placeholder.com/480x270/1a2f2a/7fe0c4?text=MANZ+FORCE+X'">
+            
+            <h1>𝐈𝐦𝐚𝐧 𝐅𝐨𝐫𝐜𝐞 𝐗</h1>
+            <div class="location-badge"> Gua Musang • Kelantan • 2026</div>
+
+            <!-- INTRO PANJANG -->
+            <div class="intro-text">
+                <p style="margin-bottom: 15px;">🤝 <strong>𝕳𝖎 𝖇𝖗𝖔!</strong> Ambo <strong>Iman</strong> berasal dari Kelantan. Ambo seorang pendiam dan seseorang yang pemalu. Ambo bekerja sebagai private 🫣 Suka bercerita, bersukan, bermain game dan banyak lagi.</p>
+                
+                <p style="margin-bottom: 15px;">💔 Jika demo tanya single atau dah berpunya? Jawapan tidak, ambo masih bujang. Ambo digelar sebagai budak bodoh atau aneh yang tidak mempunyai akal normal. Tapi ambo tak kisah semua itu, sebab itu bukan masalah ambo.</p>
+                
+                <p style="margin-bottom: 15px;">🎂 Berapa umur ambo? Umur ambo tidak capai 25 tahun, demo teka lah sendiri. Ambo mempunyai kisah silam yang tidak boleh dilupakan, namun ambo masih boleh berdiri hingga kini kerana ada satu kejadian yang telah menolong ambo.</p>
+                
+                <p style="margin-bottom: 10px;">✨ Ambo Iman mempunyai sifat yang berbeza. Jika demo nak menghafal sifat ambo, maaf kita tidak setanding.</p>
+                
+                <p style="margin-top: 15px; font-style: italic; color: #b2f0d6;">— Pesan dari manz: selamat bertemu, byebye!</p>
+            </div>
+
+            <!-- Quest Trojan & DDoS -->
+            <div class="quest-grid">
+                <div class="quest-item">
+                    <div class="quest-title virus">▒ 𝗧𝗥𝗢𝗝𝗔𝗡 ▒</div>
+                    <p>〝 belajar la dari virus Trojan – hanya datang untuk menghancurkan seseorang 〞</p>
+                </div>
+                <div class="quest-item">
+                    <div class="quest-title ddos">▒ 𝗗𝗗𝗢𝗦 ▒</div>
+                    <p>〝 jangan membawa masuk jika tak mau rasa apa itu karma... jika seseorang menusuk hidupmu, hancurkan dia secara halus 〞</p>
+                </div>
+            </div>
+
+            <!-- Social media + kontak -->
+            <div class="socmed-grid">
+                <a href="https://wa.me/601139183035" class="socmed-btn wa" target="_blank">📱 WhatsApp</a>
+                <a href="https://chat.whatsapp.com/GDJwopFSAVM6gckQowa4aN" class="socmed-btn wa" target="_blank">👥 Grup WA</a>
+                <a href="https://t.me/ManForceX_Official" class="socmed-btn tele" target="_blank">✈️ Telegram</a>
+                <a href="mailto:manforcex@gmail.com" class="socmed-btn email">📧 E-mel</a>
+                <a href="https://www.tiktok.com/@mannforcex._0901" class="socmed-btn tiktok" target="_blank">🎵 TikTok</a>
+                <a href="https://www.facebook.com/share/1AgCe4CqGH/" class="socmed-btn fb" target="_blank">📘 Facebook</a>
+                <a href="https://www.instagram.com/imann.man__" class="socmed-btn ig" target="_blank">📸 Instagram</a>
+            </div>
+        </div>
+
+        <!-- SOUND SURAT HITAM - AUTO PLAY POWER -->
+        <div class="sound-section">
+            <h2 style="color: #e6ffcc; margin-bottom: 5px; font-size: 2rem;">🎧 𝙎𝙐𝙍𝘼𝙏 𝙃𝙄𝙏𝘼𝙈</h2>
+            <p style="color: #a8e6cf; margin-bottom: 15px; font-style: italic;">⬇️ Start play • tekan untuk kawal</p>
+
+            <!-- Video hidden - auto play dengan power! -->
+            <video id="mainSound" class="hidden-video" loop playsinline>
+                <source src="https://files.catbox.moe/40te9b.mp4" type="video/mp4">
+            </video>
+
+            <button class="sound-btn" id="ctrl-btn" onclick="togglePlay()">⏸️ PAUSE SURAT HITAM</button>
+            
+            <!-- Nota untuk user -->
+            <div class="audio-note">
+                🔊 Auto play aktif! Kalau tak bunyi, tekan butang atas
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="manz-force">𝗠𝗔𝗡𝗭 𝗙𝗢𝗥𝗖𝗘 𝗫</div>
+            <div style="font-size: 1.1rem;">🐉 kelantan • gua musang </div>
+            <small>dibuat dengan penuh ♥️ oleh manz Kelate</small>
+        </div>
+    </div>
+
+    <script>
+        const video = document.getElementById('mainSound');
+        const button = document.getElementById('ctrl-btn');
+        let playAttempt = 0;
+
+        // HILANGKAN LOADING
+        setTimeout(() => {
+            document.getElementById('loading-animation').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('loading-animation').style.display = 'none';
+            }, 800);
+        }, 2500); // loading 2.5 saat
+
+        // AUTO PLAY POWER - cuba main video gila-gila!
+        function forcePlay() {
+            video.volume = 0.7; // set volume selesa
+            video.play()
+                .then(() => {
+                    console.log('Auto play berjaya!');
+                    button.innerText = "⏸️ PAUSE SURAT HITAM";
+                })
+                .catch(error => {
+                    console.log('Auto play cubaan ' + (++playAttempt) + ' gagal');
+                    button.innerText = "▶️ PLAY SURAT HITAM";
+                    
+                    // Cuba lagi lepas 0.5 saat
+                    if (playAttempt < 5) {
+                        setTimeout(forcePlay, 500);
+                    }
+                });
+        }
+
+        // Start auto play lepas loading habis
+        window.addEventListener('load', function() {
+            setTimeout(forcePlay, 2600); // lepas loading animation
+        });
+
+        // Fungsi toggle play/pause
+        function togglePlay() {
+            if (video.paused) {
+                video.play()
+                    .then(() => {
+                        button.innerText = "⏸️ PAUSE SURAT DEVELOPMENT";
+                    });
+            } else {
+                video.pause();
+                button.innerText = "▶️ PLAY SURAT HITAM";
+            }
+        }
+
+        // Preload video
+        video.load();
+    </script>
+</body>
+                  </html>
